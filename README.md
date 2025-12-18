@@ -10,4 +10,4 @@ FrappeTrack is designed for teams and organizations that use ERPNext and need a 
 
 --- 
 ## High-Level Architecture
-[HLD](https://github.com/anirudhxperts/FrappeTrack/blob/main/Frappe%20Tracker/high-level-arch.png)
+![FrappeTrack HLD](Frappe%20Tracker/high-level-arch.png)
