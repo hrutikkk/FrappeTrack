@@ -30,3 +30,12 @@ FrappeTrack is designed for teams and organizations that use ERPNext and need a 
 2. Main Screen
 
 ![FrappeTrack Login](Frappe%20Tracker/Timetracker.png)
+
+3. More ui Image (Coming Soon)
+
+---
+
+## API Development 
+1. [X] Login API
+2. [X] Get Profile API
+3. [ ] timetracker API
