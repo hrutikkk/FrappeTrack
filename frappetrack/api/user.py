@@ -15,10 +15,13 @@ def get_profile():
         employee = frappe.db.get_value(
             "Employee",
             {"user_id": user.name},
-            ["name", "designation"],
+            ["name", "designation", "date_of_birth", "image"],
             as_dict=True
         )
 
+        if employee and employee.get("image"):
+            employee["image"] = frappe.utils.get_url(employee["image"])
+            
         return {
             "success": True,
             "user": {
