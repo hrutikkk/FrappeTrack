@@ -8,28 +8,27 @@ def get_profile():
     Endpoint to get user's / employee profile details.
     """
     try:
-        user_id = get_logged_in_user()
+        auth = frappe.get_request_header("Authorization")
 
-        user = frappe.get_doc("User", user_id)
+        if not auth or not auth.startswith("Bearer "):
+            frappe.throw("Missing token")
 
-        employee = frappe.db.get_value(
-            "Employee",
-            {"user_id": user.name},
-            ["name", "designation", "date_of_birth", "image"],
+        token = auth.split(" ")[1]
+
+    # Example: token stored as api_key
+        user = frappe.db.get_value(
+            "User",
+            {"api_key": token},
+            ["name", "full_name", "email", "user_type"],
             as_dict=True
         )
 
-        if employee and employee.get("image"):
-            employee["image"] = frappe.utils.get_url(employee["image"])
-            
+        if not user:
+            frappe.throw("Invalid token")
+
         return {
             "success": True,
-            "user": {
-                "name": user.full_name,
-                "email": user.email,
-                "username": user.name,
-                "employee": employee
-            }
+            "user": user
         }
 
     except Exception:
