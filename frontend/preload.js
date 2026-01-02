@@ -2,7 +2,8 @@ const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('electronAPI', {
   getProfile: async (apiKey, apiSecret) => {
-    const res = await fetch(
+    try {
+      const res = await fetch(
       "http://192.168.0.138/api/method/frappetrack.api.user.get_employee_profile",
       {
         headers: {
@@ -11,9 +12,14 @@ contextBridge.exposeInMainWorld('electronAPI', {
         }
       }
     );
-
     if (!res.ok) throw new Error('Unable to fetch profile');
     return res.json();
+    } catch (error) {
+      console.log("error",error)
+      
+    }
+    
+
   },
 
   sendLoginSuccess: (data) => ipcRenderer.send('login-success', data),
